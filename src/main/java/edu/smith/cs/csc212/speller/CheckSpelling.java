@@ -63,21 +63,29 @@ public class CheckSpelling {
 		int numberOfWords = listOfWords.size();
 		
 		// --- Create a bunch of data structures for testing:
+		
+		//Tree Set
 		long startCreation = System.nanoTime();
 		TreeSet<String> treeOfWords = new TreeSet<>(listOfWords);
 		long endCreation = System.nanoTime();
 		System.out.println("Time to create TreeSet="+((endCreation-startCreation)/1e9)+" seconds");
 		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
+		//Hash Set
 		startCreation = System.nanoTime();
 		HashSet<String> hashOfWords = new HashSet<>(listOfWords);
 		endCreation = System.nanoTime();
 		System.out.println("Time to create HashSet="+((endCreation-startCreation)/1e9)+" seconds");
 		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
+		//Sorted String List Set
 		startCreation = System.nanoTime();
 		SortedStringListSet bsl = new SortedStringListSet(listOfWords);
 		endCreation = System.nanoTime();
 		System.out.println("Time to create SortedStringListSet="+((endCreation-startCreation)/1e9)+" seconds");
 		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
+		//Character Trie
 		startCreation = System.nanoTime();
 		CharTrie trie = new CharTrie();
 		for (String w : listOfWords) {
@@ -86,6 +94,8 @@ public class CheckSpelling {
 		endCreation = System.nanoTime();
 		System.out.println("Time to create CharTrie="+((endCreation-startCreation)/1e9)+" seconds");
 		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
+		//Linked List Hash
 		startCreation = System.nanoTime();
 		LLHash hm100k = new LLHash(100000);
 		for (String w : listOfWords) {
