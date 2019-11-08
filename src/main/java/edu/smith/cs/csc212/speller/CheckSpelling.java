@@ -48,7 +48,8 @@ public class CheckSpelling {
 		double fractionFound = found / (double) words.size();
 		double timeSpentPerItem = (endLookup - startLookup) / ((double) words.size());
 		int nsPerItem = (int) timeSpentPerItem;
-		System.out.println("  "+dictionary.getClass().getSimpleName()+": Lookup of items found="+fractionFound+" time="+nsPerItem+" ns/item");
+		System.out.println("  "+dictionary.getClass().getSimpleName()+": Lookup of items found="+fractionFound+
+				" time="+nsPerItem+" ns/item totalTime="+((endLookup-startLookup)/1e9)+" seconds");
 	}
 	
 	/**
@@ -59,18 +60,40 @@ public class CheckSpelling {
 		// --- Load the dictionary.
 		List<String> listOfWords = loadDictionary();
 		
+		int numberOfWords = listOfWords.size();
+		
 		// --- Create a bunch of data structures for testing:
+		long startCreation = System.nanoTime();
 		TreeSet<String> treeOfWords = new TreeSet<>(listOfWords);
+		long endCreation = System.nanoTime();
+		System.out.println("Time to create TreeSet="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		startCreation = System.nanoTime();
 		HashSet<String> hashOfWords = new HashSet<>(listOfWords);
+		endCreation = System.nanoTime();
+		System.out.println("Time to create HashSet="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		startCreation = System.nanoTime();
 		SortedStringListSet bsl = new SortedStringListSet(listOfWords);
+		endCreation = System.nanoTime();
+		System.out.println("Time to create SortedStringListSet="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		startCreation = System.nanoTime();
 		CharTrie trie = new CharTrie();
 		for (String w : listOfWords) {
 			trie.insert(w);
 		}
+		endCreation = System.nanoTime();
+		System.out.println("Time to create CharTrie="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		startCreation = System.nanoTime();
 		LLHash hm100k = new LLHash(100000);
 		for (String w : listOfWords) {
 			hm100k.add(w);
 		}
+		endCreation = System.nanoTime();
+		System.out.println("Time to create LLHash="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
 		
 		// --- Make sure that every word in the dictionary is in the dictionary:
 		//     This feels rather silly, but we're outputting timing information!
