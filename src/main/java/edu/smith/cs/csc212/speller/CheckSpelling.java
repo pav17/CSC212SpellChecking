@@ -73,10 +73,31 @@ public class CheckSpelling {
 		
 		//Hash Set
 		startCreation = System.nanoTime();
+		TreeSet<String> treeOfWordsTwo = new TreeSet<>();
+		for (String s : listOfWords){
+			treeOfWordsTwo.add(s);
+		}
+		endCreation = System.nanoTime();
+		System.out.println("Time to create TreeSet with add ="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
+		//Hash Set
+		startCreation = System.nanoTime();
 		HashSet<String> hashOfWords = new HashSet<>(listOfWords);
 		endCreation = System.nanoTime();
 		System.out.println("Time to create HashSet="+((endCreation-startCreation)/1e9)+" seconds");
 		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
+		//Hash Set
+		startCreation = System.nanoTime();
+		HashSet<String> hashOfWordsTwo = new HashSet<>();
+		for (String s : listOfWords){
+			hashOfWordsTwo.add(s);
+		}
+		endCreation = System.nanoTime();
+		System.out.println("Time to create HashSet with add ="+((endCreation-startCreation)/1e9)+" seconds");
+		System.out.println("Time per item: "+((endCreation-startCreation)/numberOfWords)+"ns");
+		
 		
 		//Sorted String List Set
 		startCreation = System.nanoTime();

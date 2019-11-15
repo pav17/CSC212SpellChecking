@@ -3,6 +3,7 @@ package edu.smith.cs.csc212.speller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeSet;
 
 /**
@@ -20,7 +21,8 @@ public class FakeDatasetExperiment {
 	 * @return an incorrectly-spelled word. Maybe you deleted a letter or added one?
 	 */
 	public static String makeFakeWord(String realWord) {
-		throw new RuntimeException("TODO");
+		String fakeWord = realWord.concat("leedle");
+		return fakeWord;
 	}
 
 	/**
@@ -39,6 +41,10 @@ public class FakeDatasetExperiment {
 		List<String> output = new ArrayList<>(numSamples);
 		// TODO: select numSamples * fractionYes words from yesWords; create the rest as
 		// no words.
+		new Random rand = Random();
+		for (int i = 0; i < numSamples*fractionYes; i++) {
+			output.add(yesWords.get(1));
+		}
 		return output;
 	}
 
